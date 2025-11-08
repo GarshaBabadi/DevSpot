@@ -21,7 +21,7 @@ namespace DevSpot.Data
 
             if (!await roleManager.RoleExistsAsync(Roles.Employer))
             {
-                await roleManager.CreateAsync(new IdentityRole(Roles.Employer));
+                await roleManager.CreateAsync(new IdentityRole(Roles.Employer));//////
             }
         }
     }
