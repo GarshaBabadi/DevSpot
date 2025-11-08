@@ -24,7 +24,7 @@ namespace DevSpot.Data
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "Admin");
+                    await userManager.AddToRoleAsync(user, "Admin");//
                 }
             }
 
