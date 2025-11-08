@@ -1,6 +1,8 @@
 using DevSpot.Data;
+using DevSpot.Constants;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DevSpot
 {
@@ -17,6 +19,7 @@ namespace DevSpot
 
             builder.Services.AddDefaultIdentity<IdentityUser>
                 (options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             
@@ -38,7 +41,15 @@ namespace DevSpot
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                RoleSeeder.SeedRolesAsync(services).Wait();
+                
+            }
+
+                app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseAuthorization();
