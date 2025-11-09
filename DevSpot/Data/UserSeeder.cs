@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Identity;
 using DevSpot.Constants;
+using Microsoft.Identity.Client;
 
 namespace DevSpot.Data
 {
@@ -11,23 +12,39 @@ namespace DevSpot.Data
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-            if (await userManager.FindByEmailAsync("admin@devspot.com") == null)
+            await CreateUserWithRoles(userManager, "admin@email.com", "Admin1", "Admin123!", Roles.Admin);
+            await CreateUserWithRoles(userManager, "jobseeker@email.com", "JobSeeker1", "JobSeeker123!", Roles.JobSeeker);
+            await CreateUserWithRoles(userManager, "employer@email.com", "Employer1", "Employer123!", Roles.Employer);
+        }
+
+        private static async Task CreateUserWithRoles(
+            UserManager<IdentityUser> userManager,
+            string email,
+            string userName,
+            string password,
+            string role)
+        {
+            if (await userManager.FindByEmailAsync(email) == null)
             {
                 var user = new IdentityUser
                 {
-                    Email = "admin@devspot.com",
+                    Email = email,
                     EmailConfirmed = true,
-                    UserName = "admin@devspot.com"
+                    UserName = userName,
                 };
 
-                var result = await userManager.CreateAsync(user, "Admin123!");
+                var result = await userManager.CreateAsync(user, password);
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "Admin");//
+                    await userManager.AddToRoleAsync(user, "Admin");
+                }
+                else
+                {
+                    throw new Exception($"Failed creating user with email {user.Email}. " +
+                                        $"Errors: {string.Join(",", result.Errors)}");
                 }
             }
-
         }
     }
 }
