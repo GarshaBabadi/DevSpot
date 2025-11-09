@@ -22,7 +22,7 @@ namespace DevSpot.Data
             string email,
             string userName,
             string password,
-            string role)
+            string Role)
         {
             if (await userManager.FindByEmailAsync(email) == null)
             {
