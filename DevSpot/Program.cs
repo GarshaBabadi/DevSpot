@@ -3,6 +3,8 @@ using DevSpot.Constants;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using DevSpot.Repositories;
+using DevSpot.Models;
 
 namespace DevSpot
 {
@@ -22,7 +24,7 @@ namespace DevSpot
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            
+            builder.Services.AddScoped<IRepository<JobPosting>, JobPostingRepository>();
 
             //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
             //.AddRoles<IdentityRole>()
