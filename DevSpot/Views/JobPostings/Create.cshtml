@@ -1,1 +1,27 @@
-﻿<h1>Create here!</h1>
+﻿@model DevSpot.Models.JobPosting;
+<h1>Create here!</h1>
+
+<form method="Post" action="Create">
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input type="text" asp-for="Title" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Company" class="form-label"></label>
+        <input type="text" asp-for="Company" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <input type="text" asp-for="Description" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Location" class="form-label"></label>
+        <input type="text" asp-for="Location" class="form-control"/>
+    </div>
+
+    <button type ="submit" class="btn btn-primary"> Create </button>
+</form>
