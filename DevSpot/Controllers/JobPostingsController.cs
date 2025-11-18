@@ -29,6 +29,12 @@ namespace DevSpot.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(JobPosting jobPosting)
         {
+            if(ModelState.IsValid)
+            {
+                jobPosting.UserId = _userManager.GetUserId(User);
+                await _repository.AddAsync(jobPosting);
+            }
+
             return RedirectToAction(nameof(Index));
         }
     }
