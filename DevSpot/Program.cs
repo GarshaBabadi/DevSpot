@@ -20,7 +20,7 @@ namespace DevSpot
             });
 
             builder.Services.AddDefaultIdentity<IdentityUser>
-                (options => options.SignIn.RequireConfirmedAccount = true)
+                (options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
