@@ -1,1 +1,17 @@
-﻿<h1>Job Postings here!</h1>
+﻿@model IEnumerable<JobPosting>
+<h1 class="text-center m-5">All Developers Jobs</h1>
+
+<div class="list-group">
+
+    @foreach(var jobPosting in Model)
+    {
+        <div class="list-group-item">
+            <h3>@jobPosting.Title</h3>
+            <p>@jobPosting.Description</p>
+            <p><strong>Company: </strong>@jobPosting.Company</p>
+            <p><strong>Location: </strong>@jobPosting.Location</p>
+            <p><strong>Posted Date: </strong>@jobPosting.PostedOn.ToShortDateString()</p>
+        </div>
+    }
+
+</div>
