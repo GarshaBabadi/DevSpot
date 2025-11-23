@@ -36,7 +36,7 @@ namespace DevSpot.Controllers
         [Authorize(Roles = "Employer,Admin")]
         public async Task<IActionResult> Create(JobPostingsViewModel jobPostingVm)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var jobPosting = new JobPosting
                 {
@@ -51,6 +51,14 @@ namespace DevSpot.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(jobPostingVm);
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "Employer,Admin")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _repository.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

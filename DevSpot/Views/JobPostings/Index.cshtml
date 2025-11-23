@@ -1,4 +1,5 @@
-﻿@model IEnumerable<JobPosting>
+﻿@using DevSpot.Constants;
+@model IEnumerable<JobPosting>
 <h1 class="text-center m-5">All Developers Jobs</h1>
 
 <div class="list-group">
@@ -11,6 +12,14 @@
             <p><strong>Company: </strong>@jobPosting.Company</p>
             <p><strong>Location: </strong>@jobPosting.Location</p>
             <p><strong>Posted Date: </strong>@jobPosting.PostedOn.ToShortDateString()</p>
+
+            @if (User.IsInRole(Roles.Admin) || User.IsInRole(Roles.Employer))
+            {
+                <div>
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                </div>
+            }
+            
         </div>
     }
 
