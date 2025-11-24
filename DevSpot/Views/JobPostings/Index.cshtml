@@ -24,3 +24,20 @@
     }
 
 </div>
+
+@section Scripts{
+    <script>
+        function jobPosting(id) {
+            if(confirm("Are you sure you want to delete?"))
+            $.ajax({
+                url: "@Url.Action("Delete", "JobPostings")/" + id,
+                type: "delete",
+                success: function(result) {
+                },
+                Error : function (err) {
+                    alert("An error message.")
+                }
+            })
+        }
+    </script>
+}

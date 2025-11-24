@@ -57,8 +57,7 @@ namespace DevSpot.Controllers
         [Authorize(Roles = "Employer,Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _repository.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
     }
 }
